@@ -24,7 +24,10 @@ export default function Home() {
         <div>
           <button onClick={() => auth.signinWithGitHub()}>Log in</button>
         </div>
-        <p>{auth.user}</p>
+        <p>{auth.user?.email}</p>
+        <div>
+          <button onClick={() => auth.signoutFromGitHub()}>Signout</button>
+        </div>
       </main>
 
       <footer className={styles.footer}>
