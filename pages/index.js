@@ -1,26 +1,27 @@
+import { Button } from "@chakra-ui/button";
+import { Flex } from "@chakra-ui/layout";
+import DashboardShell from "../compnents/DashboardShell";
+
+import Logo from "../compnents/Logo";
 import { useAuth } from "../lib/auth";
 
 export default function Home() {
   const auth = useAuth();
   return (
-    <div >
-      <main >
-        <h1 >Fast feedback</h1>
+    <DashboardShell>
+      <Flex as="main" direction="column" align="center" justify="center">
+        <h1>Fast feedback</h1>
 
-        <p >
-          Get started by editing{" "}
-          <code >pages/index.js</code>
-        </p>
+        <Logo boxSize="20" />
 
-        <div>
-          <button onClick={() => auth.signinWithGitHub()}>Log in</button>
-        </div>
+        {auth.user ? (
+          <Button onClick={() => auth.signoutFromGitHub()}>Signout</Button>
+        ) : (
+          <Button onClick={() => auth.signinWithGitHub()}>Log in</Button>
+        )}
+
         <p>{auth.user?.email}</p>
-        <div>
-          <button onClick={() => auth.signoutFromGitHub()}>Signout</button>
-        </div>
-      </main>
-
-    </div>
+      </Flex>
+    </DashboardShell>
   );
 }
