@@ -8,7 +8,7 @@ const EmptyState = () => {
         <VStack spacing="16px" borderRadius="lg" backgroundColor="white" direction="column" align="center" justify="center" p={10}>
             <Heading size="md">You haven`t added eny sites</Heading>
             <Text>Welcome 🤘, let`s get started!</Text>
-            <AddSite />
+            <AddSite colorScheme='gray'>Add your first site</AddSite>
         </VStack>
     )
 }

@@ -1,7 +1,8 @@
 import { Button } from "@chakra-ui/button";
 import { Flex } from "@chakra-ui/layout";
-import DashboardShell from "../compnents/DashboardShell";
+import Link from "next/link";
 
+import DashboardShell from "../compnents/DashboardShell";
 import Logo from "../compnents/Logo";
 import { useAuth } from "../lib/auth";
 
@@ -15,7 +16,10 @@ export default function Home() {
         <Logo boxSize="20" />
 
         {auth.user ? (
+          <>
+          <Link passHref href="/dashboard"><Button onClick={() => {}}>Dashboard</Button></Link>
           <Button onClick={() => auth.signoutFromGitHub()}>Signout</Button>
+          </>
         ) : (
           <Button onClick={() => auth.signinWithGitHub()}>Log in</Button>
         )}

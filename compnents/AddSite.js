@@ -16,7 +16,7 @@ import { useDisclosure } from '@chakra-ui/hooks';
 import { addSite } from '../lib/firestore';
 import { useToast } from "@chakra-ui/react"
 
-const AddSite = () => {
+const AddSite = (props) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const toast = useToast();
     const initialRef = useRef();
@@ -42,7 +42,7 @@ const AddSite = () => {
   
     return (
       <>
-        <Button onClick={onOpen}>Add your first site</Button>
+        <Button onClick={onOpen} {...props}>{props.children}</Button>
   
         <Modal
           initialFocusRef={initialRef}
