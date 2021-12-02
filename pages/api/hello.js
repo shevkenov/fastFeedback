@@ -1,5 +1,13 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
+import db from "../../lib/firabase-admin";
 
-export default function handler(req, res) {
-  res.status(200).json({ name: 'John Doe' })
+export default async function handler(_, res) {
+  try {
+    const response = await db.collection("sites").get();
+    const sites = response.docs.map(site => site.data())
+
+    res.status(200).json(sites)
+  } catch (error) {
+    console.log(error)
+  }
+  
 }
