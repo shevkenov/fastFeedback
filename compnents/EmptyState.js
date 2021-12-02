@@ -1,4 +1,3 @@
-import { Button } from '@chakra-ui/button'
 import { Heading, Text, VStack } from '@chakra-ui/layout'
 import React from 'react'
 import AddSite from './AddSite'

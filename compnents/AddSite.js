@@ -15,18 +15,20 @@ import {
 import { useDisclosure } from '@chakra-ui/hooks';
 import { addSite } from '../lib/firestore';
 import { useToast } from "@chakra-ui/react"
+import { useAuth } from '../lib/auth';
 
 const AddSite = (props) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const toast = useToast();
     const initialRef = useRef();
     const inputSiteRef = useRef();
+    const auth = useAuth();
 
     const createSite = async() => {
         const name = initialRef.current.value;
         const link = inputSiteRef.current.value;
         try {
-            await addSite({name, link});
+            await addSite({name, link, authorId: auth.user.uid, createdAt: new Date().toISOString()});
             onClose();
             toast({
                 title: "Site Added.",
