@@ -1,4 +1,5 @@
 import React, { useRef } from 'react';
+import useSWR, { useSWRConfig } from 'swr'
 import {
     Modal,
     ModalOverlay,
@@ -16,6 +17,7 @@ import { useDisclosure } from '@chakra-ui/hooks';
 import { addSite } from '../lib/firestore';
 import { useToast } from "@chakra-ui/react"
 import { useAuth } from '../lib/auth';
+import fetcher from '../utils/fetcher';
 
 const AddSite = (props) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
@@ -23,12 +25,15 @@ const AddSite = (props) => {
     const initialRef = useRef();
     const inputSiteRef = useRef();
     const auth = useAuth();
-
+    const { mutate } = useSWRConfig()
+    const { data } = useSWR('/api/sites', fetcher)
+    
     const createSite = async() => {
         const name = initialRef.current.value;
         const link = inputSiteRef.current.value;
         try {
-            await addSite({name, link, authorId: auth.user.uid, createdAt: new Date().toISOString()});
+            const newSite = {name, link, authorId: auth.user.uid, createdAt: new Date().toISOString()}
+            await addSite(newSite);
             onClose();
             toast({
                 title: "Site Added.",
@@ -37,6 +42,7 @@ const AddSite = (props) => {
                 duration: 3000,
                 isClosable: true,
               })
+              mutate('/api/sites', {...data, newSite}, false)
         } catch (error) {
             console.log(error)
         }
