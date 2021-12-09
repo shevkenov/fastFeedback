@@ -1,4 +1,4 @@
-import { formatISO } from 'date-fns';
+import { format } from 'date-fns';
 import React from 'react';
 import { Table, Td, Th, Tr } from './Table';
 
@@ -15,12 +15,12 @@ const SitesTable = ({sites}) => {
             </thead>
             <tbody>
                 {
-                    sites.map((site,inx) => (
-                        <Tr key={inx}>
+                    sites.map((site) => (
+                        <Tr key={site.id}>
                             <Td>{site.name}</Td>
                             <Td>{site.link}</Td>
                             <Td>Feedback</Td>
-                            <Td>{formatISO(new Date(site.createdAt), { representation: 'date'})}</Td>
+                            <Td>{format(new Date(site.createdAt), 'yyyy-MM-dd k:m:s')}</Td>
                         </Tr>
                     ))
                 }

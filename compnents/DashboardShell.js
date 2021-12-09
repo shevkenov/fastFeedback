@@ -10,10 +10,12 @@ import {
 } from "@chakra-ui/layout";
 import Link from "next/link";
 import React from "react";
+import { useAuth } from "../lib/auth";
 import AddSite from "./AddSite";
 import Logo from "./Logo";
 
 const DashboardShell = ({ children }) => {
+  const auth = useAuth();
   return (
     <Box backgroundColor="gray.100" h="100vh" borderTop="5px solid #0AF5F4">
       <Flex
@@ -24,7 +26,7 @@ const DashboardShell = ({ children }) => {
       >
         <Stack direction="row" spacing="24px" align="center">
           <Link passHref href="/">
-            <ChakraLink>
+            <ChakraLink onClick={() => auth.signoutFromGitHub()}>
               <Logo boxSize="20" />
             </ChakraLink>
           </Link>
@@ -35,10 +37,14 @@ const DashboardShell = ({ children }) => {
             <ChakraLink>Sites</ChakraLink>
           </Link>
         </Stack>
-        <Stack direction="row" spacing="20px" align="center">
-          <ChakraLink>Account</ChakraLink>
-          <Avatar size="sm" />
-        </Stack>
+        {auth.user && (
+          <Stack direction="row" spacing="20px" align="center">
+            <ChakraLink onClick={() => auth.signoutFromGitHub()}>
+              Logout
+            </ChakraLink>
+            <Avatar name={auth.user.name} src={auth.user.photoUrl} size="sm" />
+          </Stack>
+        )}
       </Flex>
       <Box width="70%" mx="auto" mt="50px">
         <Text color="gray.500">Sites</Text>
@@ -46,7 +52,7 @@ const DashboardShell = ({ children }) => {
           <Heading size="lg" mb={3}>
             My Sites
           </Heading>
-          <AddSite colorScheme='teal'>+ Add Site</AddSite>
+          <AddSite colorScheme="teal">+ Add Site</AddSite>
         </Flex>
         {children}
       </Box>
