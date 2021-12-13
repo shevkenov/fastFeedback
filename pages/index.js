@@ -2,8 +2,8 @@ import { Button } from "@chakra-ui/button";
 import { Flex } from "@chakra-ui/layout";
 import Link from "next/link";
 
-import DashboardShell from "../compnents/DashboardShell";
-import Logo from "../compnents/Logo";
+import DashboardShell from "../components/DashboardShell";
+import Logo from "../components/Logo";
 import { useAuth } from "../lib/auth";
 
 export default function Home() {
