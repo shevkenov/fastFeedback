@@ -1,11 +1,12 @@
 import { Box } from "@chakra-ui/layout";
 import { FormControl, Button, FormLabel, Input } from "@chakra-ui/react";
 import { useRouter } from "next/dist/client/router";
-import Feedback from "../../compnents/Feedback";
+import Feedback from "../../components/Feedback";
 import { getFeedback, getSites } from "../../lib/db";
 import { useAuth } from "../../lib/auth";
 import { useEffect, useRef, useState } from "react";
 import { createFeedback } from '../../lib/firestore';
+import parseISO from "date-fns/parseISO";
 
 export async function getStaticProps(context) {
   const siteId = context.params.siteId;
@@ -47,18 +48,21 @@ const SiteFeedback = ({ allFeedbacks }) => {
   const submitFeedback = async (e) => {
     e.preventDefault();
 
-    const feedback = {
-      author: auth.user.displayName,
-      authorId: auth.user.uid,
-      siteId: router.query.siteId,
-      createdAt:  new Date().toISOString(),
-      rating: 5,
-      status: "pending",
-      text: inputRef.current.value,
-    };
+    if(inputRef.current.value){
+      const feedback = {
+        author: auth.user.displayName,
+        authorId: auth.user.uid,
+        siteId: router.query.siteId,
+        createdAt:  new Date().toISOString(),
+        rating: 5,
+        status: "pending",
+        text: inputRef.current.value,
+      };
+  
+      await createFeedback(feedback);
+      setAllSiteFeedbacks(prev => [...prev, feedback].sort((a,b) => parseISO(b.createdAt) - parseISO(a.createdAt)));
+    }
 
-    await createFeedback(feedback);
-    setAllSiteFeedbacks(prev => [...prev, feedback]);
     inputRef.current.value = '';
   };
 

@@ -1,11 +1,11 @@
 import React from "react";
 import useSWR from "swr";
 
-import DashboardShell from "../compnents/DashboardShell";
-import EmptyState from "../compnents/EmptyState";
-import FreePlanEmptyState from "../compnents/FreePlanEmptyState";
-import SitesTable from "../compnents/SitesTable";
-import LoadingSkeleton from "../compnents/SkeletonLoading";
+import DashboardShell from "../components/DashboardShell";
+import EmptyState from "../components/EmptyState";
+import FreePlanEmptyState from "../components/FreePlanEmptyState";
+import SitesTable from "../components/SitesTable";
+import LoadingSkeleton from "../components/SkeletonLoading";
 import fetcher from '../utils/fetcher';
 
 const Dashboard = () => {
