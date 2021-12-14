@@ -16,6 +16,7 @@ export async function getStaticProps(context) {
     props: {
       allFeedbacks,
     },
+    revalidate: 10
   };
 }
 

@@ -6,10 +6,13 @@ import EmptyState from "../components/EmptyState";
 import FreePlanEmptyState from "../components/FreePlanEmptyState";
 import SitesTable from "../components/SitesTable";
 import LoadingSkeleton from "../components/SkeletonLoading";
+import { useAuth } from "../lib/auth";
 import fetcher from '../utils/fetcher';
 
 const Dashboard = () => {
-  const {data, error} = useSWR('/api/sites', fetcher);
+  const auth = useAuth();
+
+  const {data, error} = useSWR(auth.user ? ['/api/sites', auth.user.token] : null, fetcher);
 
   if(!data) return (
       <DashboardShell>
