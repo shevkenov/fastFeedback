@@ -38,7 +38,7 @@ const DashboardShell = ({ children }) => {
         </Stack>
         {auth.user && (
           <Stack direction="row" spacing="20px" align="center">
-            <ChakraLink onClick={() => auth.signoutFromGitHub()}>
+            <ChakraLink onClick={() => auth.signoutUser()}>
               Logout
             </ChakraLink>
             <Avatar name={auth.user.name} src={auth.user.photoUrl} size="sm" />
