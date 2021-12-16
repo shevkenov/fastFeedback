@@ -1,5 +1,5 @@
-import { auth } from '../../lib/firabase-admin';
-import { getUserSites } from "../../lib/db";
+import { auth } from "../../lib/firabase-admin";
+import { getUserSites, getSites } from "../../lib/db";
 
 export default async function handler(req, res) {
   const {token} = req.headers;

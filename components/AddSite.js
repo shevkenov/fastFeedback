@@ -26,7 +26,7 @@ const AddSite = (props) => {
     const inputSiteRef = useRef();
     const auth = useAuth();
     const { mutate } = useSWRConfig()
-    const { data } = useSWR('/api/sites', fetcher)
+    const { data } = useSWR(['/api/sites', auth.user], fetcher)
     
     const createSite = async() => {
         const name = initialRef.current.value;
@@ -42,7 +42,7 @@ const AddSite = (props) => {
                 duration: 3000,
                 isClosable: true,
               })
-              mutate('/api/sites', {...data, newSite}, false)
+            mutate(['/api/sites', auth.user], {...data, newSite}, false)
         } catch (error) {
             console.log(error)
         }

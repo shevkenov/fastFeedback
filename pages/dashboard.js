@@ -7,24 +7,22 @@ import FreePlanEmptyState from "../components/FreePlanEmptyState";
 import SitesTable from "../components/SitesTable";
 import LoadingSkeleton from "../components/SkeletonLoading";
 import { useAuth } from "../lib/auth";
-import fetcher from '../utils/fetcher';
+import fetcher from "../utils/fetcher";
 
 const Dashboard = () => {
   const auth = useAuth();
+  const {data, error} = useSWR(auth.user ? ['/api/sites', auth.user] : null, fetcher);
 
-  const {data, error} = useSWR(auth.user ? ['/api/sites', auth.user.token] : null, fetcher);
-
-  if(!data) return (
+  if (!data)
+    return (
       <DashboardShell>
-          <LoadingSkeleton />
+        <LoadingSkeleton />
       </DashboardShell>
-  )
+    );
 
   return (
     <DashboardShell>
-        {
-            !data.length ? <EmptyState /> : <SitesTable sites={data}/>
-        }
+      {!data.length ? <EmptyState /> : <SitesTable sites={data} />}
     </DashboardShell>
   );
 };
