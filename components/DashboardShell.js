@@ -2,15 +2,12 @@ import { Avatar } from "@chakra-ui/avatar";
 import {
   Box,
   Flex,
-  Heading,
   Link as ChakraLink,
   Stack,
-  Text,
 } from "@chakra-ui/layout";
 import Link from "next/link";
 import React from "react";
 import { useAuth } from "../lib/auth";
-import AddSite from "./AddSite";
 import Logo from "./Logo";
 
 const DashboardShell = ({ children }) => {
@@ -30,7 +27,7 @@ const DashboardShell = ({ children }) => {
             </ChakraLink>
           </Link>
           <Link passHref href="/feedback">
-            <ChakraLink>Feedback</ChakraLink>
+            <ChakraLink>Feedbacks</ChakraLink>
           </Link>
           <Link passHref href="/sites">
             <ChakraLink>Sites</ChakraLink>
@@ -46,13 +43,6 @@ const DashboardShell = ({ children }) => {
         )}
       </Flex>
       <Box width="70%" mx="auto" mt="50px">
-        <Text color="gray.500">Sites</Text>
-        <Flex justify="space-between">
-          <Heading size="lg" mb={3}>
-            My Sites
-          </Heading>
-          <AddSite colorScheme="teal">+ Add Site</AddSite>
-        </Flex>
         {children}
       </Box>
     </Box>
