@@ -22,14 +22,14 @@ const DashboardShell = ({ children }) => {
       >
         <Stack direction="row" spacing="24px" align="center">
           <Link passHref href="/">
-            <ChakraLink onClick={() => auth.signoutFromGitHub()}>
+            <ChakraLink>
               <Logo boxSize="20" />
             </ChakraLink>
           </Link>
           <Link passHref href="/feedback">
             <ChakraLink>Feedbacks</ChakraLink>
           </Link>
-          <Link passHref href="/sites">
+          <Link passHref href="/dashboard">
             <ChakraLink>Sites</ChakraLink>
           </Link>
         </Stack>

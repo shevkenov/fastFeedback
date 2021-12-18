@@ -1,16 +1,17 @@
 import React from "react";
-import { DeleteIcon } from "@chakra-ui/icons";
-import { IconButton } from "@chakra-ui/react";
 import { Table, Td, Th, Tr } from "./Table";
 
 import { removeFeedback } from "../lib/firestore";
 import { useSWRConfig } from "swr";
+import { useAuth } from "../lib/auth";
+import RemoveFeedbackButton from "./RemoveFeedbackButton";
 
 const FeedbackTable = ({ feedbacks }) => {
   const { mutate } = useSWRConfig();
+  const auth = useAuth();
   const removeFback = async (id) => {
-    mutate("/api/feedbacks");
-    await removeFeedback(id);
+      await removeFeedback(id);
+      mutate(['/api/feedbacks', auth.user], async(data) => data.filter(fback => fback.id !== id));
   };
   return (
     <Table w="100%">
@@ -26,18 +27,12 @@ const FeedbackTable = ({ feedbacks }) => {
       <tbody>
         {feedbacks.map((fback) => (
           <Tr key={fback.id}>
-            <Td fontWeight="medium">Name</Td>
+            <Td fontWeight="medium">{fback.siteName}</Td>
             <Td>{fback.text}</Td>
-            <Td>route</Td>
+            <Td>/</Td>
             <Td>{fback.status}</Td>
             <Td textAlign="center">
-              <IconButton
-                variant="outline"
-                colorScheme="black"
-                aria-label="Remove feedback"
-                icon={<DeleteIcon />}
-                onClick={() => removeFback(fback.id)}
-              />
+              <RemoveFeedbackButton id={fback.id} onRemove={removeFback}/>
             </Td>
           </Tr>
         ))}
