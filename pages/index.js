@@ -18,7 +18,7 @@ export default function Home() {
         {auth.user ? (
           <>
           <Link passHref href="/dashboard"><Button onClick={() => {}}>Dashboard</Button></Link>
-          <Button onClick={() => auth.signoutFromGitHub()}>Signout</Button>
+          <Button onClick={() => auth.signoutUser()}>Signout</Button>
           </>
         ) : (
           <Button onClick={() => auth.signinWithGitHub()}>Log in</Button>

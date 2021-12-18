@@ -5,7 +5,7 @@ import Feedback from "../../components/Feedback";
 import { getFeedback, getSites } from "../../lib/db";
 import { useAuth } from "../../lib/auth";
 import { useEffect, useRef, useState } from "react";
-import { createFeedback } from '../../lib/firestore';
+import { createFeedback } from "../../lib/firestore";
 import parseISO from "date-fns/parseISO";
 
 export async function getStaticProps(context) {
@@ -16,7 +16,7 @@ export async function getStaticProps(context) {
     props: {
       allFeedbacks,
     },
-    revalidate: 10
+    revalidate: 10,
   };
 }
 
@@ -43,28 +43,32 @@ const SiteFeedback = ({ allFeedbacks }) => {
   const inputRef = useRef();
 
   useEffect(() => {
-    setAllSiteFeedbacks(allFeedbacks)
-  }, [allFeedbacks])
+    setAllSiteFeedbacks(allFeedbacks);
+  }, [allFeedbacks]);
 
   const submitFeedback = async (e) => {
     e.preventDefault();
 
-    if(inputRef.current.value){
+    if (inputRef.current.value) {
       const feedback = {
-        author: auth.user.displayName,
+        author: auth.user.name,
         authorId: auth.user.uid,
         siteId: router.query.siteId,
-        createdAt:  new Date().toISOString(),
+        createdAt: new Date().toISOString(),
         rating: 5,
         status: "pending",
         text: inputRef.current.value,
       };
-  
+
       await createFeedback(feedback);
-      setAllSiteFeedbacks(prev => [...prev, feedback].sort((a,b) => parseISO(b.createdAt) - parseISO(a.createdAt)));
+      setAllSiteFeedbacks((prev) =>
+        [...prev, feedback].sort(
+          (a, b) => parseISO(b.createdAt) - parseISO(a.createdAt)
+        )
+      );
     }
 
-    inputRef.current.value = '';
+    inputRef.current.value = "";
   };
 
   return (
@@ -87,9 +91,14 @@ const SiteFeedback = ({ allFeedbacks }) => {
           </FormControl>
         </Box>
       )}
-      {allSiteFeedbacks.map((feedback) => (
-        <Feedback key={feedback.id || new Date().getTime().toString()} {...feedback} />
-      ))}
+      {allSiteFeedbacks.map((feedback, inx) => {
+        return (
+          <Feedback
+            key={feedback.id || inx}
+            {...feedback}
+          />
+        );
+      })}
     </Box>
   );
 };
