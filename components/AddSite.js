@@ -64,12 +64,12 @@ const AddSite = (props) => {
             <ModalBody pb={6}>
               <FormControl>
                 <FormLabel>Name</FormLabel>
-                <Input ref={initialRef} placeholder="Name" />
+                <Input ref={initialRef} placeholder="Name" width="90%" />
               </FormControl>
   
               <FormControl mt={4}>
                 <FormLabel>Link</FormLabel>
-                <Input ref={inputSiteRef} placeholder="Website Link" />
+                <Input ref={inputSiteRef} placeholder="Website Link" width="90%" />
               </FormControl>
             </ModalBody>
   

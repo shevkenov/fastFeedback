@@ -1,7 +1,7 @@
 import React from "react";
 import useSWR from "swr";
-import AddSite from "../components/AddSite";
 
+import AddSite from "../components/AddSite";
 import DashboardShell from "../components/DashboardShell";
 import EmptyState from "../components/EmptyState";
 import FreePlanEmptyState from "../components/FreePlanEmptyState";
